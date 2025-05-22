@@ -5,7 +5,13 @@
 	<div>
 		<p>
 			@error('email')
-				{{ $message }}
+				<script>
+					Swal.fire({
+						icon: 'error',
+						title: 'Oops...',
+						text: '{{ $message }}',
+					});
+				</script>
 			@enderror
 		</p>
 	</div>
