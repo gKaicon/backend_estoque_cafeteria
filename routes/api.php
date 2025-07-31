@@ -33,3 +33,11 @@ Route::apiResource('buys', BuyController::class);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//depois apagar esse trecho
+use Illuminate\Support\Facades\Schema;
+Route::get('/tables-test', function () {
+    $tables = Schema::getTables();
+    $tableNames = collect($tables)->pluck('name');
+    return $tableNames;
+});
