@@ -1,66 +1,146 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+-----
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# API - Estoque da Cafeteria
 
-## About Laravel
+API RESTful desenvolvida em Laravel para o sistema de gerenciamento de estoque e vendas de uma cafeteria.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## ✨ Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+  * 🚀 Autenticação segura de usuários utilizando JWT (JSON Web Tokens).
+  * 📦 Gerenciamento completo de **Produtos** (CRUD - Criar, Ler, Atualizar, Deletar).
+  * 🛒 Gerenciamento de **Vendas** e seus itens.
+  * 🚚 Gerenciamento de **Compras** de fornecedores e seus itens.
+  * 📊 Atualização automática de estoque baseada nas operações de Compra e Venda.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🔧 Pré-requisitos
 
-## Learning Laravel
+Antes de começar, garanta que você tem o seguinte ambiente configurado:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+  * PHP \>= 8.2
+  * Composer 2
+  * Node.js e NPM
+  * Um SGBD como MySQL, PostgreSQL ou SQLite.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## ⚙️ Instalação e Configuração
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Siga os passos abaixo para configurar o ambiente de desenvolvimento local.
 
-## Laravel Sponsors
+1.  **Clone o repositório:**
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    ```bash
+    git clone https://github.com/seu-usuario/sua-api-cafeteria.git
+    cd sua-api-cafeteria
+    ```
 
-### Premium Partners
+2.  **Instale as dependências:**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    ```bash
+    composer install
+    npm install
+    ```
 
-## Contributing
+3.  **Configure o arquivo de ambiente:**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    ```bash
+    cp .env.example .env
+    ```
 
-## Code of Conduct
+    Depois, abra o arquivo `.env` e configure suas variáveis de ambiente, principalmente a conexão com o banco de dados (`DB_*`).
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4.  **Gere a chave da aplicação:**
 
-## Security Vulnerabilities
+    ```bash
+    php artisan key:generate
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5.  **Gere a chave secreta do JWT:**
+    Este passo é **crucial** para a autenticação funcionar.
 
-## License
+    ```bash
+    php artisan jwt:secret
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6.  **Execute as migrações do banco de dados:**
+    Este comando criará todas as tabelas necessárias.
+
+    ```bash
+    php artisan migrate
+    ```
+
+7.  **(Opcional) Popule o banco com dados de teste:**
+    Se você criou `Seeders`, rode o comando abaixo.
+
+    ```bash
+    php artisan db:seed
+    ```
+
+## ▶️ Executando a Aplicação
+
+Para iniciar o servidor de desenvolvimento local, execute:
+
+```bash
+php artisan serve
+```
+
+A API estará disponível em `http://127.0.0.1:8000`.
+
+## Endpoints da API
+
+Todas as rotas protegidas exigem um token JWT no cabeçalho da requisição:
+`Authorization: Bearer {seu_token}`
+
+-----
+
+### 🔑 Autenticação
+
+  * **`POST /api/auth/login`**
+
+      * **Descrição:** Autentica um usuário e retorna um token JWT.
+      * **Corpo:** `{ "email": "user@example.com", "password": "password" }`
+
+  * **`POST /api/auth/register`**
+
+      * **Descrição:** Registra um novo usuário.
+      * **Corpo:** `{ "name": "Nome do Usuário", "email": "user@example.com", "password": "password", "password_confirmation": "password" }`
+
+  * **`POST /api/auth/logout`**
+
+      * **Descrição:** Invalida o token do usuário autenticado. (Rota protegida)
+
+
+### 📦 Produtos
+
+  * **`GET /api/products`**: Lista todos os produtos.
+  * **`POST /api/products`**: Cria um novo produto.
+      * **Corpo:** `{ "name": "Café Especial", "description": "Grãos de Minas", "price": 25.50, "amount": 100 }`
+  * **`GET /api/products/{id}`**: Exibe um produto específico.
+  * **`PUT /api/products/{id}`**: Atualiza um produto.
+  * **`DELETE /api/products/{id}`**: Deleta um produto.
+
+*(Todas as rotas de produtos são protegidas)*
+
+-----
+
+### 🛒 Vendas
+
+  * **`GET /api/sells`**: Lista todas as vendas.
+  * **`POST /api/sells`**: Cria um novo registro de venda (inicia uma venda).
+  * **`GET /api/sells/{id}`**: Exibe uma venda específica com seus itens.
+  * **`POST /api/sells/{saleId}/items`**: Adiciona um produto a uma venda. A quantidade em estoque do produto é **diminuída** automaticamente.
+      * **Corpo:** `{ "product_id": 1, "quantity": 2}`
+  * **`DELETE /api/sells/{saleId}/items/{itemId}`**: Remove um item de uma venda. A quantidade em estoque do produto é **devolvida** automaticamente.
+
+*(Todas as rotas de vendas são protegidas)*
+
+-----
+
+### 🚚 Compras (Entrada de Estoque)
+
+  * **`GET /api/buys`**: Lista todas as compras de fornecedores.
+  * **`POST /api/buys`**: Cria um novo registro de compra.
+  * **`GET /api/buys/{id}`**: Exibe uma compra específica com seus itens.
+  * **`POST /api/buys/{purchaseId}/items`**: Adiciona um produto a uma compra. A quantidade em estoque do produto é **aumentada** automaticamente.
+      * **Corpo:** `{ "product_id": 1, "quantity": 50}`
+  * **`DELETE /api/buys/{purchaseId}/items/{itemId}`**: Remove um item de uma compra. A quantidade em estoque do produto é **revertida** automaticamente.
+
+*(Todas as rotas de compras são protegidas)*
